@@ -1,0 +1,149 @@
+* {box-sizing: border-box;}
+
+body{
+	font-family: arial;
+  	background: #ebf1ef47;
+  	background-image: url("logistics2.jpg");
+ 	min-height: 380px;
+ 	background-position: center;
+ 	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+	margin: 5px;
+}
+
+@media (min-width: 320px) {
+  .container {
+    width: 268px;
+  }
+}
+
+@media (min-width: 375px) {
+  .container {
+    width: 300px;
+  }
+}
+
+@media (min-width: 425px) {
+  .container {
+    width: 375px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 720px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  position: relative;
+  min-height: 1px;
+  width: 33.333333%;
+  /*background-color: #fff;*/
+}
+
+form{
+	border-radius: 10px;
+	margin: 5px;
+}
+
+.form p{
+	font-size: 18px;
+}
+
+h1{
+	color: #000;
+	text-align: center;
+}
+
+input[type=text], input[type=password], input[type=email], input[type=number] {
+	width: 100%;
+	padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+input[type=text]:hover, input[type=password]:hover, input[type=email]:hover, input[type=number]:hover {
+	background-color: #ddd;
+}
+
+input[type=text]:focus, input[type=password], input[type=email], input[type=number]:focus {
+  background-color: #fff;
+  outline: none;
+  color: #000;
+}
+
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+.reg-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  margin: 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+.reg-btn:hover {
+  opacity:1;
+  background-color: #360bb8;
+}
+
+.signin {
+  background-color: #f1f1f1;
+  text-align: center;
+}
+
+.imgform {
+    text-align: center;
+    margin: 24px 0 12px 0;
+}
+
+
+img.avatar {
+    width: 40%;
+    border-radius: 50%;
+}
+
+.forg-pswd{
+	margin: 10px;
+    text-align: center;
+    color: #fff;
+}
+
+.redirect{
+	text-align: center;
+    padding-bottom: 10px;
+}
+
+.redirect p{
+	color: #fff;
+    font-size: large;
+    font-weight: bolder;
+}
