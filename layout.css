@@ -2,13 +2,13 @@
 
 body{
 	font-family: arial;
- 	background: #ebf1ef47;
- 	min-height: 380px;
- 	background-position: center;
- 	background-repeat: no-repeat;
-	background-size: cover;
-	position: relative;
-	margin: 5px;
+  background: #ebf1ef47;
+  min-height: 380px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  margin: 5px;
 }
 
 @media (min-width: 320px) {
@@ -142,7 +142,6 @@ body{
 .status-pend{
   cursor: pointer;
 }
-
 
 input[type=text], input[type=number] {
   width: 100%;
