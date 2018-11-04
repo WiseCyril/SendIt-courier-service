@@ -28,31 +28,41 @@
 		</div>
 
 		<div class="content">
-			<h1>New Delivery Order</h1>
+			<h1>Parcel Information</h1>
 
-			<form method="Post" action="/confirm.html">
-				<label for="weight"><b>Weight</b></label>
-				<input type="number" placeholder="Enter Weight (kg)" name="weight" required>
-
-				<label for="pickup"><b>Pickup Location</b></label>
-				<input type="text" placeholder="Enter Pickup Location" name="pickup" required>
-
-				<label for="destination"><b>Destination</b></label>
-				<input type="text" placeholder="Enter Destination" name="destination" required>
-
-				<label for="contact-no"><b>Contact Phone Number</b></label>
-				<input type="text" placeholder="Enter Receiver's Phone Number" name="contact-no" required>
-			</form>
 			<hr>
-
-			<div class="delivery-btn">
-				<a href="confirm.html"><button type="submit">CREATE DELIVERY ORDER</button></a>
+			<div class="">
+				<span>Weight: 2kg</span>
+				<span>Price: NGN1000</span>
 			</div>
 
-			<span style="font-size: 12px; font-weight: bolder; margin: 10px;">***Prices are dependent on weight@ NGN500 per kg</span>
+			<hr>
+			<div>
+				<div id="inputs">
+					<label>Pickup Location</label>
+						<input type="text" name="pickup" value="Lekki, Lagos." readonly="">
+					<label>Destination Location</label>
+						<input type="text" name="destination" value="Sokoto, Sokoto" placeholder="You can change the address here!">
+					</pre>
+				</div>
+
+				<!-- <div id="output"></div> -->
+			</div>
+
+			<hr>
+			<div id="map"
+>				<p>To Add Google Map Here</p>
+			</div>
+
+			<hr>
+			<div class="delivery-btn">
+				<a href="dashboard.html">
+					<button type="submit">UPDATE DELIVERY ORDER</button>
+				</a>
+			</div>
 		</div>
 
 	</div>
-
+	
 </body>
 </html>

@@ -66,6 +66,10 @@ form{
 	font-size: 18px;
 }
 
+.form label{
+  color: #fff;
+}
+
 h1{
 	color: #000;
 	text-align: center;
