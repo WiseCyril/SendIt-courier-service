@@ -2,47 +2,98 @@
 
 body{
 	font-family: arial;
-  	background: #ebf1ef47;
-  	background-image: url("logistics2.jpg");
+  background: #ebf1ef47;
+  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('logistics2.jpg');
+  background-position:center top;
  	min-height: 380px;
  	background-position: center;
  	background-repeat: no-repeat;
 	background-size: cover;
 	position: relative;
 	margin: 5px;
+  display: flex;
 }
 
-@media (min-width: 320px) {
-  .container {
-    width: 268px;
-  }
-}
-
-@media (min-width: 375px) {
+@media screen and (min-width: 320px) {
   .container {
     width: 300px;
+    display: block;
   }
 }
 
-@media (min-width: 425px) {
+@media screen and (min-width: 375px) {
   .container {
-    width: 375px;
+    width: 350px;
+  }
+  .content-form{
+    width: 100%;
+  }
+  .content{
+    width: 100%;
   }
 }
 
-@media (min-width: 768px) {
+@media screen and (min-width: 425px) {
+  .container {
+    width: 400px;
+  }
+  .content-form{
+    width: 100%;
+  }
+  .signup{
+    width: 100%;
+  }
+  .content{
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 768px) {
   .container {
     width: 720px;
+    display: flex;
+  }
+  .content-form{
+    width: 33.33333%;
+  }
+  .signup{
+    width: 43.3333%;
+  }
+  .content{
+    width: 56.7777%;
   }
 }
-@media (min-width: 992px) {
+
+@media screen and (min-width: 992px) {
   .container {
-    width: 970px;
+    /*width: 930px;*/
+    display: flex;
+  }
+  .content-form{
+    width: 33.33333%;
+  }
+  .signup{
+    width: 43.3333%;
+  }
+  .content{
+    width: 66.7777%;
   }
 }
-@media (min-width: 1200px) {
+
+@media screen and (min-width: 1200px) {
   .container {
-    width: 1170px;
+    width: 1100px;
+    display: flex;
+  }
+  .content-form{
+    width: 33.33333%;
+  }
+  .signup{
+    width: 43.3333%;
+    right: 20%;
+  }
+  .content{
+    width: 66.7777%;
   }
 }
 
@@ -53,36 +104,68 @@ body{
   margin-left: auto;
   position: relative;
   min-height: 1px;
-  width: 33.333333%;
-  /*background-color: #fff;*/
+  /*display: flex;*/
+  /*flex-wrap: wrap;*/
 }
 
-form{
-	border-radius: 10px;
-	margin: 5px;
+.content-form{
+  /*width: 33.333333%;*/
+  color: #101013;
+  border-radius: 15px;
+  background-color: #f5f9f9;
 }
 
-.form p{
-	font-size: 18px;
+.signup{
+  /*width: 42.333333%;*/
+  padding: 10px;
+  margin: auto;
+}
+
+.content-form h3{
+  color: #101013;
+  text-align: center;
+  font-size: 22px;
+}
+
+.content{
+  /*width: 66.66%;*/
+  color: #fff;
+  margin: auto;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.content h1{
+  color: #bbdbe3;
+  text-align: center;
+  font-size: 55px;
+}
+
+.content p{
+  font-size: 22px;
+}
+
+.form{
+  font-size: 20px;
+  margin: 10px;
 }
 
 .form label{
-  color: #fff;
+	font-size: 19px;
 }
 
-h1{
-	color: #000;
-	text-align: center;
+.form label{
+  color: #101013;
 }
 
 input[type=text], input[type=password], input[type=email], input[type=number] {
 	width: 100%;
 	padding: 15px;
-    margin: 5px 0 22px 0;
-    display: inline-block;
-    border: none;
-    background: #f1f1f1;
-    border-radius: 10px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+  border-radius: 10px;
 }
 
 input[type=text]:hover, input[type=password]:hover, input[type=email]:hover, input[type=number]:hover {
@@ -101,8 +184,8 @@ hr {
 }
 
 .reg-btn {
-  background-color: #4CAF50;
-  color: white;
+  background-color: #8188ad;
+  color: #fff;
   padding: 16px 20px;
   margin: 0;
   border: none;
@@ -125,29 +208,33 @@ hr {
 }
 
 .imgform {
-    text-align: center;
-    margin: 24px 0 12px 0;
+  text-align: center;
+  margin: 24px 0 12px 0;
 }
 
 
 img.avatar {
-    width: 40%;
-    border-radius: 50%;
+  width: 40%;
+  border-radius: 50%;
+  background-color: #88a284;
 }
 
 .forg-pswd{
 	margin: 10px;
-    text-align: center;
-    color: #fff;
+  text-align: center;
+  font-size: 15px;
 }
 
 .redirect{
 	text-align: center;
-    padding-bottom: 10px;
+  padding-bottom: 10px;
 }
 
 .redirect p{
-	color: #fff;
-    font-size: large;
-    font-weight: bolder;
+  font-size: 18px;
+  font-weight: bolder;
+}
+
+a{
+  text-decoration: none;
 }
