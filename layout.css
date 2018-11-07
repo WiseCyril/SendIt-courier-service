@@ -88,8 +88,8 @@ body{
 }
 
 .content{
-  background-color: #9fc3dd;
-  color: #000;
+  background-color: #5757d7;
+  color: #1f1717;
   border-radius: 15px;
   padding: 15px;
   height: 100%;
@@ -105,12 +105,7 @@ body{
 }
 
 .delivery-btn button{
-/*  margin: auto;
-  display: flex;
-  border-radius: 10px;
-  font-size: 18px;*/
-
-  background-color: #8188ad;
+  background-color: crimson;
   color: #fff;
   padding: 16px 20px;
   margin: 0;
@@ -124,51 +119,46 @@ body{
 }
 
 .delivery-btn button:hover{
-/*  background-color: gold;
-  color: red;
-  cursor: pointer;*/
-
   opacity:1;
-  background-color: #360bb8;
+  background-color: #6c6b65;
 }
 
 .all-delivery{
   border-radius: 7px;
-  background-color: #6666c5;
+  /*background-color: #6666c5;*/
 }
 
 .all-delivery:hover{
-  background-color: red;
-  color: #fff;
+  /*background-color: red;*/
+  color: red;
   cursor: pointer;
 }
 
 .pend-delivery{
   border-radius: 7px;
-  background-color: darkgrey;
+  /*background-color: darkgrey;*/
 }
 
 .pend-delivery:hover{
-  background-color: yellow;
+  /*background-color: yellow;*/
   color: red;
   cursor: pointer;
 }
 
 .delivered{
   border-radius: 7px;
-  background-color: #81dca4;
+  /*background-color: #81dca4;*/
 }
 
 .delivered:hover{
-  background-color: red;
-  color: #fff;
+  /*background-color: red;*/
+  color: red;
   cursor: pointer;
 }
 
 .status-pend{
   cursor: pointer;
 }
-
 
 input[type=text], input[type=number] {
   width: 100%;
@@ -214,7 +204,7 @@ input[type=text], input[type=number] {
 }
 
 .content-list .dash:nth-child(odd) {
-    background: #aebfb7;
+    background: #eff3f1;
 }
 
 .content-list .dash:nth-child(even) {
@@ -234,4 +224,5 @@ a{
 .ctrl a{
   border: 0.5px solid #fff;
   border-radius: 5px;
+  color: #000;
 }
