@@ -56,7 +56,27 @@ app.post('/api/v1/parcels', (req,res) => {
 		success: 'true',
    		message: 'parcel order added successfully',
    		parcelData
-   		})
+   		});
+});
+
+//fetch a single parcel order
+app.get('/api/v1/parcels/:id', (req, res) => {
+	const id = parseInt(req.params.id, 10);
+
+	db.map((parcelData) => {
+		if(parcelData.id === id) {
+			return res.status(200).send({
+				success: 'true',
+				message: 'parcel order successfully retrieved',
+				parcelData,
+			});
+		}
+	});
+
+	return res.status(404).send({
+		success: 'false',
+		message: 'parcel order does not exist',
+	});
 });
 
 const PORT = 3000;
