@@ -20,6 +20,45 @@ app.get('/api/v1/parcels', (req, res) => {
   })
 });
 
+//create a parcel order
+app.post('/api/v1/parcels', (req,res) => {
+	if(!req.body.weight) {
+		return res.status(400).send({
+			success: 'false',
+			message: 'weight is required'
+		});
+	} else if (!req.body.receiver_name) {
+		return res.status(400).send({
+			success: 'false',
+			message: 'receiver\'s name is required'
+		});
+	} else if (!req.body.pickup) {
+		return res.status(400).send({
+			success: 'false',
+			message: 'pickup location is required'
+		});
+	} else if (!req.body.destination) {
+		return res.status(400).send({
+			success: 'false',
+			message: 'destination is required'
+		});
+	}
+	const parcelData = {
+		id: db.length + 1,
+		weight: req.body.weight,
+		receiver_name: req.body.receiver_name,
+		pickup: req.body.pickup,
+		destination: req.body.destination
+	};
+
+	db.push(parcelData);
+	return res.status(201).send({
+		success: 'true',
+   		message: 'parcel order added successfully',
+   		parcelData
+   		});
+});
+
 //fetch a single parcel order
 app.get('/api/v1/parcels/:id', (req, res) => {
 	const id = parseInt(req.params.id, 10);
