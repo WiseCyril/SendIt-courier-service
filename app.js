@@ -79,6 +79,26 @@ app.get('/api/v1/parcels/:id', (req, res) => {
 	});
 });
 
+//delete or cancel a parcel delivery order
+app.delete('/api/v1/parcels/:id', (req, res) => {
+	const id = parseInt(req.params.id, 10);
+
+	db.map((parcelData, index) => {
+		if(parcelData.id === id) {
+			db.splice(index, 1);
+			return res.status(200).send({
+				success: 'true',
+				message: 'Parcel order deleted successfully',
+			});
+		}
+	});
+
+	return res.status(404).send({
+		success: 'false',
+		message: 'parcel order not found',
+	});
+});
+
 const PORT = 3000;
 
 app.listen(PORT, () => {
