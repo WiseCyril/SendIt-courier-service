@@ -99,6 +99,50 @@ app.delete('/api/v1/parcels/:id', (req, res) => {
 	});
 });
 
+//update an order
+app.put('/api/v1/parcels/:id', (req, res) => {
+	const id = parseInt(req.params.id, 10);
+	let parcelOrder;
+	let parcelIndex;
+
+	db.map((parcelData, index) => {
+		if (parcelData.id === id) {
+			parcelOrder = parcelData;
+			parcelIndex = index;
+		}
+	});
+
+	// if (!parcelOrder) {
+	// 	return res.status(404).send({
+	// 		success: 'false',
+	// 		message: 'Parcel order not found',
+	// 	});
+	// }
+
+	if (!req.body.destination) {
+		return res.status(404).send({
+			success: 'false',
+			message: 'Only destination can be change',
+		});
+	}
+
+	const updateParcelOrder = {
+		id: parcelOrder.id,
+		weight: parcelOrder.weight,
+		receiver_name: parcelOrder.receiver_name,
+		pickup: parcelOrder.pickup,
+		destination: req.body.destination,
+	};
+
+	db.splice(parcelIndex, 1, updateParcelOrder);
+
+	return res.status(201).send({
+		success: 'true',
+		message: 'Parcel order destination successfully changed',
+		updateParcelOrder,
+	});
+});
+
 const PORT = 3000;
 
 app.listen(PORT, () => {
