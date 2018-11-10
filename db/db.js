@@ -2,7 +2,7 @@
 
 const parcelData = [
     {
-        id: 1,
+        parcelId: 1,
         weight: "30kg",
         pickup: "Sokoto street, Abia",
         receiver_name: "Kunle Abubakar",
@@ -10,7 +10,7 @@ const parcelData = [
     },
 
     {
-        id: 2,
+        parcelId: 2,
         weight: "4kg",
         pickup: "Niger street, Enugu",
         receiver_name: "Abu Taylor",
@@ -18,7 +18,7 @@ const parcelData = [
     },
 
     {
-        id: 3,
+        parcelId: 3,
         weight: "4kg",
         pickup: "Ndu street, Rivers",
         receiver_name: "Kareem Jimmy",
@@ -26,7 +26,7 @@ const parcelData = [
     },
     
     {
-        id: 4,
+        parcelId: 4,
         weight: "5kg",
         pickup: "Maritama, Abuja",
         receiver_name: "Clifford Samuel",
