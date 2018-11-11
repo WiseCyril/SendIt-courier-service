@@ -17,7 +17,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node_modules/.bin/nodemon app.js --exec babel-node --",
+    "dev-start": "node_modules/.bin/nodemon app.js --exec babel-node --",
+    "start": "babel-node app.js --exec",
     "lint": "eslint ./routes ./db ./controllers app.js --fix"
   },
   "repository": {
