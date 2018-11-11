@@ -1,9 +1,8 @@
 import express from 'express';
-import db from './db/db.js';
+import bodyParser from 'body-parser';
 import router from './routes/parcel.js';
 
-//import body-parser into app.js
-import bodyParser from 'body-Parser';
+// import body-parser into app.js
 
 // Set up the express app
 const app = express();
@@ -13,9 +12,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(router);
 
-
 const PORT = 3000;
 
 app.listen(PORT, () => {
-  console.log(`server running on port ${PORT}`)
+  console.log(`server running on port ${PORT}`);
 });
