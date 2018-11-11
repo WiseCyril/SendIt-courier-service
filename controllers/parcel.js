@@ -2,133 +2,160 @@
 import db from '../db/db';
 
 class ParcelDelivery {
-	listAllParcelOrders(req, res) {
-		res.status(200).send({
-		  success: 'true',
-		  message: 'Successfully retrieved all parcel orders',
-		  parcelData: db
-		});
-	}
+  listAllParcelOrders(req, res) {
+    res.status(200).send({
+      success: 'true',
+      message: 'Successfully retrieved all parcel orders',
+		  parcelData: db,
+    });
+  }
 
-	listSingleParcelOrder(req, res){
-		const parcelId = parseInt(req.params.parcelId, 10);
+  listSingleParcelOrder (req, res) {
+    let parcel
+    const parcelId = parseInt(req.params.parcelId, 10);
 
-		db.map((parcelData) => {
-			if(parcelData.parcelId === parcelId) {
-				return res.status(200).send({
-					success: 'true',
-					message: 'parcel order successfully retrieved',
-					parcelData
-				});
-			}
-		});
+    parcel = db.find((parcelData) => parcelData.parcelId === parcelId);
 
-		return res.status(404).send({
-			success: 'false',
-			message: 'parcel order does not exist',
-		});
-	}
+    if (parcel) {
+      return res.status(200).send({
+        success: 'true',
+        message: 'parcel order successfully retrieved',
+        parcel,
+      });
+    } else {
+      return res.status(404).send({
+        success: 'false',
+        message: 'parcel order does not exist'
+      });
+    }
+  }
 
+  listUsersParcel (req, res) {
+    let parcel;
 
-	createParcelOrder(req, res) {
-		if(!req.body.weight) {
-			return res.status(400).send({
-				success: 'false',
-				message: 'weight is required'
-			});
-		} else if (!req.body.receiver_name) {
-			return res.status(400).send({
-				success: 'false',
-				message: 'receiver\'s name is required'
-			});
-		} else if (!req.body.pickup) {
-			return res.status(400).send({
-				success: 'false',
-				message: 'pickup location is required'
-			});
-		} else if (!req.body.destination) {
-			return res.status(400).send({
-				success: 'false',
-				message: 'destination is required'
-			});
-		}
-		const parcelData = {
-			parcelId: db.length + 1,
-			weight: req.body.weight,
-			receiver_name: req.body.receiver_name,
-			pickup: req.body.pickup,
-			destination: req.body.destination
-		};
+    const userId = parseInt(req.params.userId, 10);
 
-		db.push(parcelData);
-		return res.status(201).send({
-			success: 'true',
-	   		message: 'parcel order added successfully',
-	   		parcelData
-	   		});
-	}
+    parcel = db.filter((parcelData) => parcelData.userId === userId);
 
-	cancelParcelOrder(req, res) {
-		const parcelId = parseInt(req.params.parcelId, 10);
+    if (parcel) {
+      return res.status(200).send({
+        success: 'true',
+        message: 'users parcels successfully retrieved',
+        parcel,
+      });
+    } else {
+      return res.status(404).send({
+        success: 'false',
+        message: 'users does not exist'
+      });
+    }
+  };
 
-		db.map((parcelData, index) => {
-			if(parcelData.parcelId === parcelId) {
-				db.splice(index, 1);
-				return res.status(200).send({
-					success: 'true',
-					message: 'Parcel order deleted successfully',
-				});
-			}
-		});
+  createParcelOrder(req, res) {
+    console.log(req.body)
+    if (!req.body.weight) {
+      return res.status(400).send({
+        success: 'false',
+        message: 'weight is required',
+      });
+    } if (!req.body.receiver_name) {
+      return res.status(400).send({
+        success: 'false',
+        message: 'receiver\'s name is required',
+      });
+    } if (!req.body.pickup) {
+      return res.status(400).send({
+        success: 'false',
+        message: 'pickup location is required',
+      });
+    } if (!req.body.destination) {
+      return res.status(400).send({
+        success: 'false',
+        message: 'destination is required',
+      });
+    } if (!req.body.userId) {
+      return res.status(400).send({
+        success: 'false',
+        message: 'userId is required',
+      });
+    }
+    const parcelData = {
+      parcelId: db.length + 1,
+      userId: req.body.userId,
+      weight: req.body.weight,
+      receiver_name: req.body.receiver_name,
+      pickup: req.body.pickup,
+      destination: req.body.destination,
+    };
 
-		return res.status(404).send({
-			success: 'false',
-			message: 'parcel order not found',
-		});
-	}
+    db.push(parcelData);
+    return res.status(201).send({
+      success: 'true',
+      message: 'parcel order added successfully',
+   		parcelData
+    });
+  }
 
-	updateParcelOrder(req, res) {
-		const parcelId = parseInt(req.params.parcelId, 10);
-		let parcelOrder;
-		let parcelIndex;
+  cancelParcelOrder(req, res) {
+    let theParcel;
+    const parcelId = parseInt(req.params.parcelId, 10);
 
-		db.map((parcelData, index) => {
-			if (parcelData.parcelId === parcelId) {
-				parcelOrder = parcelData;
-				parcelIndex = index;
-			}
-		});
+    db.forEach((parcel, index) => {
+      if (parcel.parcelId === parcelId) {
+        theParcel = parcel
+        db.splice(index, 1);
+      }
+    });
 
-		// if (!parcelOrder) {
-		// 	return res.status(404).send({
-		// 		success: 'false',
-		// 		message: 'Parcel order not found',
-		// 	});
-		// }
+    if (theParcel) {
+      return res.status(200).send({
+        success: 'true',
+        message: 'Parcel order deleted successfully',
+      });      
+    } else {
+      return res.status(404).send({
+        success: 'false',
+        message: 'parcel order not found',
+      });
+    }
+  }
 
-		if (!req.body.destination) {
-			return res.status(404).send({
-				success: 'false',
-				message: 'Only destination can be change',
-			});
-		}
+  updateParcelOrder (req, res) {
+    const parcelId = parseInt(req.params.parcelId, 10);
+    let parcelOrder;
+    let parcelIndex;
 
-		const updateParcelOrder = {
-			parcelId: parcelOrder.parcelId,
-			weight: parcelOrder.weight,
-			receiver_name: parcelOrder.receiver_name,
-			pickup: parcelOrder.pickup,
-			destination: req.body.destination,
-		};
+    db.map((parcelData, index) => {
+      if (parcelData.parcelId === parcelId) {
+        parcelOrder = parcelData;
+        parcelIndex = index;
+      }
+    });
 
-		db.splice(parcelIndex, 1, updateParcelOrder);
+    if (!req.body.destination) {
+      return res.status(404).send({
+        success: 'false',
+        message: 'Only destination can be change',
+      });
+    }
 
-		return res.status(201).send({
-			success: 'true',
-			message: 'Parcel order destination successfully changed',
-			updateParcelOrder,
-		});
-	}
+    const updateParcelOrder = {
+      parcelId: parcelOrder.parcelId,
+      userId: parcelOrder.userId,
+      weight: parcelOrder.weight,
+      receiver_name: parcelOrder.receiver_name,
+      pickup: parcelOrder.pickup,
+      destination: req.body.destination,
+    };
+
+    db.splice(parcelIndex, 1, updateParcelOrder);
+
+    return res.status(201).send({
+      success: 'true',
+      message: 'Parcel order destination successfully changed',
+      updateParcelOrder,
+    });
+  }
 }
 
 const parcelDeliveryOrder = new ParcelDelivery();
