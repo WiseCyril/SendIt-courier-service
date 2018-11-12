@@ -1,3 +1,4 @@
+/*eslint class-methods-use-this: "error"*/
 import db from '../db/db';
 
 class ParcelDelivery {
