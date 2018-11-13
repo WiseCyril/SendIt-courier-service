@@ -1,5 +1,5 @@
 import express from 'express';
-import ParcelDelivery from '../controllers/parcel.js';
+import ParcelDelivery from '../controllers/parcel';
 
 const router = express.Router();
 

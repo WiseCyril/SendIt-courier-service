@@ -12,7 +12,7 @@ const parcelData = [
 
   {
     parcelId: 2,
-    userId: 743,    
+    userId: 743,
     weight: '4kg',
     pickup: 'Niger street, Enugu',
     receiver_name: 'Abu Taylor',
@@ -21,7 +21,7 @@ const parcelData = [
 
   {
     parcelId: 3,
-    userId: 123,        
+    userId: 123,
     weight: '4kg',
     pickup: 'Ndu street, Rivers',
     receiver_name: 'Kareem Jimmy',
@@ -30,7 +30,7 @@ const parcelData = [
 
   {
     parcelId: 4,
-    userId: 743,    
+    userId: 743,
     weight: '5kg',
     pickup: 'Maritama, Abuja',
     receiver_name: 'Clifford Samuel',
@@ -38,7 +38,7 @@ const parcelData = [
   },
   {
     parcelId: 5,
-    userId: 123,    
+    userId: 123,
     weight: '5kg',
     pickup: 'Maritama, Abuja',
     receiver_name: 'Clifford Samuel',
@@ -46,7 +46,7 @@ const parcelData = [
   },
   {
     parcelId: 6,
-    userId: 121,    
+    userId: 121,
     weight: '5kg',
     pickup: 'Maritama, Abuja',
     receiver_name: 'Clifford Samuel',
@@ -54,7 +54,7 @@ const parcelData = [
   },
   {
     parcelId: 7,
-    userId: 121,    
+    userId: 121,
     weight: '5kg',
     pickup: 'Maritama, Abuja',
     receiver_name: 'Clifford Samuel',

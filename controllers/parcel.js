@@ -1,80 +1,78 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable class-methods-use-this */
+
 import db from '../db/db';
 
 class ParcelDelivery {
   listAllParcelOrders(req, res) {
-    res.status(200).send({
+    res.status(200).json({
       success: 'true',
       message: 'Successfully retrieved all parcel orders',
-		  parcelData: db,
+      parcelData: db,
     });
   }
 
-  listSingleParcelOrder (req, res) {
-    let parcel
+  listSingleParcelOrder(req, res) {
+    // let parcel;
     const parcelId = parseInt(req.params.parcelId, 10);
 
-    parcel = db.find((parcelData) => parcelData.parcelId === parcelId);
+    const parcel = db.find(parcelData => parcelData.parcelId === parcelId);
 
     if (parcel) {
-      return res.status(200).send({
+      return res.status(200).json({
         success: 'true',
         message: 'parcel order successfully retrieved',
         parcel,
       });
-    } else {
-      return res.status(404).send({
-        success: 'false',
-        message: 'parcel order does not exist'
-      });
     }
+    return res.status(404).json({
+      success: 'false',
+      message: 'parcel order does not exist',
+    });
   }
 
-  listUsersParcel (req, res) {
-    let parcel;
+  listUsersParcel(req, res) {
+    // let parcel;
 
     const userId = parseInt(req.params.userId, 10);
-
-    parcel = db.filter((parcelData) => parcelData.userId === userId);
+    const parcel = db.filter(parcelData => parcelData.userId === userId);
 
     if (parcel) {
-      return res.status(200).send({
+      return res.status(200).json({
         success: 'true',
         message: 'users parcels successfully retrieved',
         parcel,
       });
-    } else {
-      return res.status(404).send({
-        success: 'false',
-        message: 'users does not exist'
-      });
     }
-  };
+    return res.status(404).json({
+      success: 'false',
+      message: 'users does not exist',
+    });
+  }
 
   createParcelOrder(req, res) {
-    console.log(req.body)
     if (!req.body.weight) {
-      return res.status(400).send({
+      return res.status(400).json({
         success: 'false',
         message: 'weight is required',
       });
     } if (!req.body.receiver_name) {
-      return res.status(400).send({
+      return res.status(400).json({
         success: 'false',
         message: 'receiver\'s name is required',
       });
     } if (!req.body.pickup) {
-      return res.status(400).send({
+      return res.status(400).json({
         success: 'false',
         message: 'pickup location is required',
       });
     } if (!req.body.destination) {
-      return res.status(400).send({
+      return res.status(400).json({
         success: 'false',
         message: 'destination is required',
       });
     } if (!req.body.userId) {
-      return res.status(400).send({
+      return res.status(400).json({
         success: 'false',
         message: 'userId is required',
       });
@@ -89,10 +87,10 @@ class ParcelDelivery {
     };
 
     db.push(parcelData);
-    return res.status(201).send({
+    return res.status(201).json({
       success: 'true',
       message: 'parcel order added successfully',
-   		parcelData
+      parcelData,
     });
   }
 
@@ -102,25 +100,24 @@ class ParcelDelivery {
 
     db.forEach((parcel, index) => {
       if (parcel.parcelId === parcelId) {
-        theParcel = parcel
+        theParcel = parcel;
         db.splice(index, 1);
       }
     });
 
     if (theParcel) {
-      return res.status(200).send({
+      return res.status(200).json({
         success: 'true',
-        message: 'Parcel order deleted successfully',
-      });      
-    } else {
-      return res.status(404).send({
-        success: 'false',
-        message: 'parcel order not found',
+        message: 'Parcel order has been cancelled successfully',
       });
     }
+    return res.status(404).json({
+      success: 'false',
+      message: 'parcel order not found',
+    });
   }
 
-  updateParcelOrder (req, res) {
+  updateParcelOrder(req, res) {
     const parcelId = parseInt(req.params.parcelId, 10);
     let parcelOrder;
     let parcelIndex;
@@ -133,7 +130,7 @@ class ParcelDelivery {
     });
 
     if (!req.body.destination) {
-      return res.status(404).send({
+      return res.status(404).json({
         success: 'false',
         message: 'Only destination can be change',
       });
@@ -150,7 +147,7 @@ class ParcelDelivery {
 
     db.splice(parcelIndex, 1, updateParcelOrder);
 
-    return res.status(201).send({
+    return res.status(201).json({
       success: 'true',
       message: 'Parcel order destination successfully changed',
       updateParcelOrder,
