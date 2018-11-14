@@ -8,45 +8,68 @@
 	<link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans|Roboto" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script type="text/javascript" src="main.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<script type="text/javascript" src="main.js"></script>
 </head>
 <body>
 	<div class="container">
-		<div class="content">
-			<h1>SendIT</h1>
-			<p>Welcome To SendIT Courier Services. we are a courier service that helps our users deliver parcels to different destinations anywhere in the world.</p>
-			<p>SendIT provides courier quotes based on weight categories.</p>
+		<nav class="header">
+			<img src="logo.png" alt="SendIt logo">
+			<div class="head">
+				<ul class="navbar">
+					<li class="nav"><a href="#" title="">Home</a></li>
+					<li class="nav"><a href="#" title="">Contact Us</a></li>
+					<li class="nav"><a href="index.html">Login Here</a></li>
+				</ul>
+			</div>
+		</nav>
+
+		<div class="group">
+			<div class="content">
+				<h1>SendIT</h1>
+				<p>Welcome To SendIT Courier Services. we are a courier service that helps our users deliver parcels to different destinations anywhere in the world.</p>
+				<p>SendIT provides courier quotes based on weight categories.</p>
+			</div>
+
+			<div class="content-form signup">
+				<h3>CREATE AN ACCOUNT</h3>
+				<form method="Post" action="dashboard.html">
+					<p>Please fill this form to create an account.</p>
+					<hr>
+
+					<div class="form">
+						<label for="Full Name"><b>Full Name</b></label>
+						<input type="text" placeholder="Enter Full Name" name="fullname" required>
+
+						<label for="Phone Number"><b>Phone Number</b></label>
+						<input type="Number" placeholder="Enter Phone Number" name="phnumber" required>
+
+						<label for="email"><b>Email</b></label>
+						<input type="text" placeholder="Enter Email" name="email" required>
+
+						<label for="password"><b>Password</b></label>
+						<input type="password" placeholder="Enter Password" name="psw" required>
+
+						<label for="password-repeat"><b>Confirm Password</b></label>
+						<input type="password" placeholder="Confirm Password" name="psw-repeat" required>
+
+						<button type="submit" class="reg-btn">Register</button>					
+					</div>
+
+					<div class="redirect">
+						<p>Already have an account? <a href="index.html">Login in here</a>.</p>
+					</div>
+				</form>
+			</div>
 		</div>
 
-		<div class="content-form signup">
-			<h3>CREATE AN ACCOUNT</h3>
-			<form method="Post" action="dashboard.html">
-				<p>Please fill this form to create an account.</p>
-				<hr>
+		<div class="footer fixed">
+			<span>Contact Us</span>
+			<span><i class="fab fa-facebook-square"></i></span>
+			<span><i class="fab fa-linkedin"></i></span>
+			<span><i class="fab fa-twitter-square"></i></span>
+		</div>
 
-				<div class="form">
-					<label for="Full Name"><b>Full Name</b></label>
-					<input type="text" placeholder="Enter Full Name" name="fullname" required>
-
-					<label for="Phone Number"><b>Phone Number</b></label>
-					<input type="Number" placeholder="Enter Phone Number" name="phnumber" required>
-
-					<label for="email"><b>Email</b></label>
-					<input type="text" placeholder="Enter Email" name="email" required>
-
-					<label for="password"><b>Password</b></label>
-					<input type="password" placeholder="Enter Password" name="psw" required>
-
-					<label for="password-repeat"><b>Confirm Password</b></label>
-					<input type="password" placeholder="Confirm Password" name="psw-repeat" required>
-
-					<button type="submit" class="reg-btn">Register</button>					
-				</div>
-
-				<div class="redirect">
-					<p>Already have an account? <a href="index.html">Login in here</a>.</p>
-				</div>
-		</form>
 	</div>
-
 </body>
 </html>

@@ -1,22 +1,10 @@
 * {box-sizing: border-box;}
 
-body{
-	font-family: arial;
-  background: #ebf1ef47;
-  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('logistics2.jpg');
-  background-position:center top;
- 	min-height: 380px;
- 	background-position: center;
- 	background-repeat: no-repeat;
-	background-size: cover;
-	position: relative;
-	margin: 5px;
-  display: flex;
-}
-
 @media screen and (min-width: 320px) {
   .container {
     width: 300px;
+  }
+  .group{
     display: block;
   }
 }
@@ -24,6 +12,12 @@ body{
 @media screen and (min-width: 375px) {
   .container {
     width: 350px;
+  }
+  .header ul{
+    display: block;
+  }
+  .group{
+    display: block;
   }
   .content-form{
     width: 100%;
@@ -36,6 +30,12 @@ body{
 @media screen and (min-width: 425px) {
   .container {
     width: 400px;
+  }
+  .header ul{
+    display: block;
+  }
+  .group{
+    display: block;
   }
   .content-form{
     width: 100%;
@@ -51,6 +51,13 @@ body{
 @media screen and (min-width: 768px) {
   .container {
     width: 720px;
+    display: flex;
+  }
+  .header ul{
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .group{
     display: flex;
   }
   .content-form{
@@ -69,6 +76,10 @@ body{
     /*width: 930px;*/
     display: flex;
   }
+  .header ul{
+    display: flex;
+    justify-content: space-evenly;
+  }
   .content-form{
     width: 33.33333%;
   }
@@ -81,9 +92,19 @@ body{
 }
 
 @media screen and (min-width: 1200px) {
+  body{
+    height: 100%;
+  }
   .container {
     width: 1100px;
+  }
+  .group{
     display: flex;
+    height: -webkit-fill-available;
+  }
+  .header ul{
+    display: flex;
+    justify-content: space-evenly;
   }
   .content-form{
     width: 33.33333%;
@@ -97,26 +118,97 @@ body{
   }
 }
 
+@media screen and (min-width: 2200px) {
+  body{
+    height: 100%;
+  }
+  .container {
+    width: 2000px;
+  }
+  .group{
+    display: flex;
+    height: -webkit-fill-available;
+  }
+  .header ul{
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .content-form{
+    width: 33.33333%;
+  }
+  .signup{
+    width: 43.3333%;
+    right: 20%;
+  }
+  .content{
+    width: 66.7777%;
+  }
+}
+
+body{
+	font-family: arial;
+  /* background-color: #300032; */
+  /* display: flex; */
+  color: #06000a;
+   position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
 .container {
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
-  position: relative;
-  min-height: 1px;
-  /*display: flex;*/
-  /*flex-wrap: wrap;*/
+  display: block;
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  background-color: #300032;
+
 }
 
+.header{
+  display: flex;
+  justify-content: space-evenly;
+  margin: 10px;
+  background: #bd4e4e;
+  width: 100%;
+}
+
+.head{
+  width: 54%;
+}
+
+.header a{
+  font-variant-caps: unset;
+  font-size: 29px;
+  color: #e6e6e8;
+}
+
+.navbar{
+  list-style-type: none;
+  position: relative;
+  padding: 0.5rem 1rem;
+}
+
+.nav{
+  margin-left: 10px;
+}
+
+.title{
+  font-size: 38px;
+}
+
+
 .content-form{
-  /*width: 33.333333%;*/
   color: #101013;
   border-radius: 15px;
   background-color: #f5f9f9;
+  margin: auto;
 }
 
 .signup{
-  /*width: 42.333333%;*/
   padding: 10px;
   margin: auto;
 }
@@ -128,11 +220,10 @@ body{
 }
 
 .content{
-  /*width: 66.66%;*/
   color: #fff;
   margin: auto;
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .content h1{
@@ -184,7 +275,7 @@ hr {
 }
 
 .reg-btn {
-  background-color: #8188ad;
+  background-color: #300032;
   color: #fff;
   padding: 16px 20px;
   margin: 0;
@@ -192,31 +283,18 @@ hr {
   cursor: pointer;
   width: 100%;
   opacity: 0.9;
-  border-radius: 10px;
   font-size: 20px;
   font-weight: bolder;
 }
 
 .reg-btn:hover {
   opacity:1;
-  background-color: #360bb8;
+  background-color: #2a022b;
 }
 
 .signin {
   background-color: #f1f1f1;
   text-align: center;
-}
-
-.imgform {
-  text-align: center;
-  margin: 24px 0 12px 0;
-}
-
-
-img.avatar {
-  width: 40%;
-  border-radius: 50%;
-  background-color: #88a284;
 }
 
 .forg-pswd{
@@ -237,4 +315,16 @@ img.avatar {
 
 a{
   text-decoration: none;
+  color: #06000a;
+}
+
+.footer{
+  width: 100%;
+  color: white;
+  margin-top: 10px;
+  background: #bd4e4e;
+}
+
+.fab{
+  margin: 10px;
 }
