@@ -147,8 +147,6 @@
 
 body{
 	font-family: arial;
-  /* background-color: #300032; */
-  /* display: flex; */
   color: #06000a;
    position: absolute;
   width: 100%;
@@ -176,13 +174,18 @@ body{
   width: 100%;
 }
 
+.header img{
+  width: 10%;
+  height: 10%;
+}
+
 .head{
   width: 54%;
 }
 
 .header a{
   font-variant-caps: unset;
-  font-size: 29px;
+  font-size: 15px;
   color: #e6e6e8;
 }
 

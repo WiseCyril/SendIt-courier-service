@@ -85,7 +85,7 @@ body{
 }
 
 .content{
-  background-color: #d0c5d0;
+  background-color: #f3eef3;
   color: #080707;
   padding: 15px;
   height: 100%;
@@ -135,8 +135,11 @@ body{
   background-color: #180119;
 }
 
-.all-delivery{
-  margin-left: 10px;
+.all-delivery, .pend-delivery, .delivered{
+    background-color: #fff;
+    color: #300032;
+    cursor: pointer;
+    font-weight: bolder;
 }
 
 .all-delivery:hover{
@@ -213,12 +216,10 @@ a{
 
 .ctrl{
   justify-content: space-between;
-  margin: 5px;
   display: flex;
 }
 
 .ctrl a{
-  border: 1.5px solid #090909;
   color: #f3f1f1f5;
   background: #300032;
   box-shadow: 0px 1px 0px 4px rgb(51, 19, 51);
