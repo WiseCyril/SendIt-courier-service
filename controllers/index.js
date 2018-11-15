@@ -1,13 +1,12 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable class-methods-use-this */
-
-import db from '../db/db';
+const db = require('../db/db');
 
 class ParcelDelivery {
   listAllParcelOrders(req, res) {
     res.status(200).json({
       success: 'true',
-      message: 'Successfully retrieved all parcel orders',
+      message: 'You have successfully retrieved all parcel orders',
       parcelData: db,
     });
   }
@@ -21,13 +20,13 @@ class ParcelDelivery {
     if (parcel) {
       return res.status(200).json({
         success: 'true',
-        message: 'parcel order successfully retrieved',
+        message: 'A parcel order has been successfully retrieved',
         parcel,
       });
     }
     return res.status(404).json({
       success: 'false',
-      message: 'parcel order does not exist',
+      message: 'This parcel order does not exist',
     });
   }
 
@@ -40,13 +39,13 @@ class ParcelDelivery {
     if (parcel) {
       return res.status(200).json({
         success: 'true',
-        message: 'users parcels successfully retrieved',
+        message: 'This user\'s parcel orders has been successfully retrieved',
         parcel,
       });
     }
     return res.status(404).json({
       success: 'false',
-      message: 'users does not exist',
+      message: 'This user does not exist',
     });
   }
 
@@ -54,27 +53,27 @@ class ParcelDelivery {
     if (!req.body.weight) {
       return res.status(400).json({
         success: 'false',
-        message: 'weight is required',
+        message: 'The weight of item is required',
       });
     } if (!req.body.receiver_name) {
       return res.status(400).json({
         success: 'false',
-        message: 'receiver\'s name is required',
+        message: 'A receiver\'s name is required',
       });
     } if (!req.body.pickup) {
       return res.status(400).json({
         success: 'false',
-        message: 'pickup location is required',
+        message: 'Your pickup location is required',
       });
     } if (!req.body.destination) {
       return res.status(400).json({
         success: 'false',
-        message: 'destination is required',
+        message: 'Parcel destination is required',
       });
     } if (!req.body.userId) {
       return res.status(400).json({
         success: 'false',
-        message: 'userId is required',
+        message: 'The User-Id is required',
       });
     }
     const parcelData = {
@@ -87,9 +86,9 @@ class ParcelDelivery {
     };
 
     db.push(parcelData);
-    return res.status(201).json({
+    return res.status(200).json({
       success: 'true',
-      message: 'parcel order added successfully',
+      message: 'A parcel order has been successfully created',
       parcelData,
     });
   }
@@ -108,12 +107,12 @@ class ParcelDelivery {
     if (theParcel) {
       return res.status(200).json({
         success: 'true',
-        message: 'Parcel order has been cancelled successfully',
+        message: 'This Parcel order has been successfully cancelled',
       });
     }
     return res.status(404).json({
       success: 'false',
-      message: 'parcel order not found',
+      message: 'This parcel order was not found',
     });
   }
 
@@ -147,13 +146,13 @@ class ParcelDelivery {
 
     db.splice(parcelIndex, 1, updateParcelOrder);
 
-    return res.status(201).json({
+    return res.status(200).json({
       success: 'true',
-      message: 'Parcel order destination successfully changed',
+      message: 'Parcel destination has been successfully updated',
       updateParcelOrder,
     });
   }
 }
 
 const parcelDeliveryOrder = new ParcelDelivery();
-export default parcelDeliveryOrder;
+module.exports = parcelDeliveryOrder;
