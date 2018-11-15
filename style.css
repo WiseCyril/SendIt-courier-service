@@ -169,7 +169,6 @@ body{
 .header{
   display: flex;
   justify-content: space-evenly;
-  margin: 10px;
   background: #bd4e4e;
   width: 100%;
 }
