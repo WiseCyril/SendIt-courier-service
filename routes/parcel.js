@@ -1,5 +1,5 @@
-import express from 'express';
-import ParcelDelivery from '../controllers/parcel';
+const express = require('express');
+const ParcelDelivery = require('../controllers/parcel');
 
 const router = express.Router();
 
@@ -15,10 +15,10 @@ router.get('/api/v1/parcels/:parcelId', ParcelDelivery.listSingleParcelOrder);
 // fetch all parcels orders by a specific user
 router.get('/api/v1/users/:userId/parcels', ParcelDelivery.listUsersParcel);
 
-// delete or cancel a parcel delivery order
+// cancel a parcel delivery order
 router.put('/api/v1/parcels/:parcelId/cancel', ParcelDelivery.cancelParcelOrder);
 
 // update an order
 router.patch('/api/v1/parcels/:parcelId', ParcelDelivery.updateParcelOrder);
 
-export default router;
+module.exports = router;
