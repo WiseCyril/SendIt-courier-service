@@ -1,7 +1,6 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable class-methods-use-this */
-
-import db from '../db/db';
+const db = require('../db/db.js');
 
 class ParcelDelivery {
   listAllParcelOrders(req, res) {
@@ -87,7 +86,7 @@ class ParcelDelivery {
     };
 
     db.push(parcelData);
-    return res.status(201).json({
+    return res.status(200).json({
       success: 'true',
       message: 'parcel order added successfully',
       parcelData,
@@ -147,7 +146,7 @@ class ParcelDelivery {
 
     db.splice(parcelIndex, 1, updateParcelOrder);
 
-    return res.status(201).json({
+    return res.status(200).json({
       success: 'true',
       message: 'Parcel order destination successfully changed',
       updateParcelOrder,
@@ -156,4 +155,4 @@ class ParcelDelivery {
 }
 
 const parcelDeliveryOrder = new ParcelDelivery();
-export default parcelDeliveryOrder;
+module.exports = parcelDeliveryOrder;

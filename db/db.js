@@ -62,4 +62,4 @@ const parcelData = [
   },
 ];
 
-export default parcelData;
+module.exports = parcelData;
