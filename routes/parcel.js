@@ -19,6 +19,6 @@ router.get('/api/v1/users/:userId/parcels', ParcelDelivery.listUsersParcel);
 router.put('/api/v1/parcels/:parcelId/cancel', ParcelDelivery.cancelParcelOrder);
 
 // update an order
-router.patch('/api/v1/parcels/:parcelId', ParcelDelivery.updateParcelOrder);
+router.put('/api/v1/parcels/:parcelId', ParcelDelivery.updateParcelOrder);
 
 module.exports = router;

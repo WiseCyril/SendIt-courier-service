@@ -71,7 +71,7 @@ describe('create parcel delivery by the user POST', () => {
 describe('update parcel delivery by the user PUT', () => {
   it('it allows you to update parcel orders PUT', (done) => {
     chai.request(app)
-      .patch('/api/v1/parcels/:parcelId/')
+      .put('/api/v1/parcels/:parcelId/')
       .send({ destination: 'Lagos, Singapore' })
       .end((err, res) => {
         res.should.have.status(200);
