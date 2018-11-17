@@ -60,7 +60,7 @@ describe('create parcel delivery by the user POST', () => {
       .end((err, res) => {
         res.should.have.status(200);
         // eslint-disable-next-line no-unused-expressions
-        res.should.be.json;
+        // res.should.be.json;
         // res.body.parcel.userId.should.equal(743);
         res.body.success.should.equal('true');
         done();
@@ -71,13 +71,22 @@ describe('create parcel delivery by the user POST', () => {
 describe('update parcel delivery by the user PUT', () => {
   it('it allows you to update parcel orders PUT', (done) => {
     chai.request(app)
-      .put('/api/v1/parcels/:parcelId/')
-      .send({ destination: 'Lagos, Singapore' })
+      .get('/api/v1/parcels')
       .end((err, res) => {
+        // const id = 2;
+        chai.request(app)
+          .put('/api/v1/parcels/2/')
+          .send({
+            // userId: 743,
+            // weight: '4kg',
+            // pickup: 'Niger street, Enugu',
+            // receiver_name: 'Abu Taylor',
+            destination: 'Ayotunde street, Osogbo',
+          });
         res.should.have.status(200);
-        response.body.should.be.a('object');
         // eslint-disable-next-line no-unused-expressions
-        res.should.be.json;
+        // res.should.be.json;
+        res.body.should.be.a('object');
         // res.body.parcel.userId.should.equal(743);
         res.body.success.should.equal('true');
         // response.body.UPDATED.destination.should.equal('Spider');
@@ -86,18 +95,19 @@ describe('update parcel delivery by the user PUT', () => {
   });
 });
 
-describe('cancel parcel delivery by the user PATCH', () => {
-  it('it allows you to cancel parcel orders PATCH', (done) => {
+describe('cancel parcel delivery by the user PUT', () => {
+  it('it allows you to cancel parcel orders PUT', (done) => {
     chai.request(app)
-      .put('/api/v1/parcels/:parcelId/cancel')
+      .get('/api/v1/parcels')
       .end((err, res) => {
+        const parcelId = 1;
+        chai.request(app)
+          .put(`/api/v1/parcels/:${parcelId}/cancel`);
         res.should.have.status(200);
-        response.body.should.be.a('object');
+        res.body.should.be.a('object');
         // eslint-disable-next-line no-unused-expressions
-        res.should.be.json;
-        // res.body.parcel.userId.should.equal(743);
+        // res.should.be.json;
         res.body.success.should.equal('true');
-        // response.body.UPDATED.destination.should.equal('Spider');
         done();
       });
   });
