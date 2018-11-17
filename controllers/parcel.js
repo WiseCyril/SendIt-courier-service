@@ -86,7 +86,7 @@ class ParcelDelivery {
     };
 
     db.push(parcelData);
-    return res.status(200).json({
+    return res.status(201).json({
       success: 'true',
       message: 'parcel order added successfully',
       parcelData,
@@ -105,7 +105,7 @@ class ParcelDelivery {
     });
 
     if (theParcel) {
-      return res.status(200).json({
+      return res.status(204).json({
         success: 'true',
         message: 'Parcel order has been cancelled successfully',
       });

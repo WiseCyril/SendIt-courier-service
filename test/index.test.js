@@ -58,7 +58,7 @@ describe('create parcel delivery by the user POST', () => {
         destination: 'Ibukun street, Osogbo',
       })
       .end((err, res) => {
-        res.should.have.status(200);
+        res.should.have.status(201);
         // eslint-disable-next-line no-unused-expressions
         // res.should.be.json;
         // res.body.parcel.userId.should.equal(743);
