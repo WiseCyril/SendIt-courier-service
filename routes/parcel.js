@@ -21,18 +21,4 @@ router.put('/api/v1/parcels/:parcelId/cancel', ParcelDelivery.cancelParcelOrder)
 // update an order
 router.put('/api/v1/parcels/:parcelId', ParcelDelivery.updateParcelOrder);
 
-// router.use((req, res, next) => {
-//   console.log('A request triggered 404');
-//   next(err);
-// });
-
-// error handler
-// router.use((err, req, res, next) => {
-//   // eslint-disable-next-line no-console
-//   console.log(err.message);
-//   res.status(err.status || 500);
-//   res.render('error');
-//   next(err);
-// });
-
 module.exports = router;

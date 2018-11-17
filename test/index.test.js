@@ -85,7 +85,7 @@ describe('update parcel delivery by the user PUT', () => {
           });
         res.should.have.status(200);
         // eslint-disable-next-line no-unused-expressions
-        res.should.be.json;
+        // res.should.be.json;
         res.body.should.be.a('object');
         // res.body.parcel.userId.should.equal(743);
         res.body.success.should.equal('true');
@@ -106,7 +106,7 @@ describe('cancel parcel delivery by the user PUT', () => {
         res.should.have.status(200);
         res.body.should.be.a('object');
         // eslint-disable-next-line no-unused-expressions
-        res.should.be.json;
+        // res.should.be.json;
         res.body.success.should.equal('true');
         done();
       });
