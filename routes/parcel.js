@@ -4,7 +4,6 @@ const ParcelDelivery = require('../controllers/parcel');
 const validateRequestPayload = require('../middleware/validateRequestPayload');
 
 const router = express.Router();
-
 const CreateParcelSchema = Joi.object({
   userId: Joi.number().positive().integer().required(),
   weight: Joi.number().positive().required(),

@@ -20,11 +20,11 @@ app.all('*', (req, res) => {
   res.json('Route not available at the moment');
 });
 
-const PORT = process.env.PORT || 5400;
+// const PORT = process.env.PORT || 5400;
 
-app.listen(PORT, () => {
-  // eslint-disable-next-line no-console
-  console.log(`server running on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   // eslint-disable-next-line no-console
+//   console.log(`server running on port ${PORT}`);
+// });
 
 module.exports = app;

@@ -1,10 +1,22 @@
 /* eslint-disable no-undef */
 const chai = require('chai');
+const http = require('http');
 const chaiHttp = require('chai-http');
-const app = require('../app');
+const application = require('../app');
 
 chai.should();
 chai.use(chaiHttp);
+
+let app = null;
+
+beforeEach(() => {
+  app = http.createServer(application);
+  app.listen(process.env.PORT || 5000);
+});
+
+afterEach(() => {
+  app.close();
+});
 
 describe('Get all parcel delivery orders', () => {
   it('should list ALL parcel orders GET', (done) => {
