@@ -3,7 +3,7 @@
 const db = require('../db/db.js');
 
 class ParcelDelivery {
-  listAllParcelOrders(req, res) {
+  static listAllParcelOrders(req, res) {
     res.status(200).json({
       success: 'true',
       message: 'Successfully retrieved all parcel orders',
@@ -11,7 +11,7 @@ class ParcelDelivery {
     });
   }
 
-  listSingleParcelOrder(req, res) {
+  static listSingleParcelOrder(req, res) {
     // let parcel;
     const parcelId = parseInt(req.params.parcelId, 10);
 
@@ -30,7 +30,7 @@ class ParcelDelivery {
     });
   }
 
-  listUsersParcel(req, res) {
+  static listUsersParcel(req, res) {
     // let parcel;
 
     const userId = parseInt(req.params.userId, 10);
@@ -49,7 +49,7 @@ class ParcelDelivery {
     });
   }
 
-  createParcelOrder(req, res) {
+  static createParcelOrder(req, res) {
     if (!req.body.weight) {
       return res.status(400).json({
         success: 'false',
@@ -93,7 +93,7 @@ class ParcelDelivery {
     });
   }
 
-  cancelParcelOrder(req, res) {
+  static cancelParcelOrder(req, res) {
     let theParcel;
     const parcelId = parseInt(req.params.parcelId, 10);
 
@@ -116,7 +116,7 @@ class ParcelDelivery {
     });
   }
 
-  updateParcelOrder(req, res) {
+  static updateParcelOrder(req, res) {
     const parcelId = parseInt(req.params.parcelId, 10);
     let parcelOrder;
     let parcelIndex;
@@ -154,5 +154,5 @@ class ParcelDelivery {
   }
 }
 
-const parcelDeliveryOrder = new ParcelDelivery();
-module.exports = parcelDeliveryOrder;
+// const parcelDeliveryOrder = new ParcelDelivery();
+module.exports = ParcelDelivery;

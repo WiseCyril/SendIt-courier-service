@@ -19,7 +19,7 @@ app.all('*', (req, res) => {
   res.json('Route not available at the moment');
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5400;
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
