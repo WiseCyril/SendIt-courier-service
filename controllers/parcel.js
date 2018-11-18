@@ -12,7 +12,6 @@ class ParcelDelivery {
   }
 
   static listSingleParcelOrder(req, res) {
-    // let parcel;
     const parcelId = parseInt(req.params.parcelId, 10);
 
     const parcel = db.find(parcelData => parcelData.parcelId === parcelId);
@@ -31,8 +30,6 @@ class ParcelDelivery {
   }
 
   static listUsersParcel(req, res) {
-    // let parcel;
-
     const userId = parseInt(req.params.userId, 10);
     const parcel = db.filter(parcelData => parcelData.userId === userId);
 
@@ -50,32 +47,6 @@ class ParcelDelivery {
   }
 
   static createParcelOrder(req, res) {
-    if (!req.body.weight) {
-      return res.status(400).json({
-        success: 'false',
-        message: 'weight is required',
-      });
-    } if (!req.body.receiver_name) {
-      return res.status(400).json({
-        success: 'false',
-        message: 'receiver\'s name is required',
-      });
-    } if (!req.body.pickup) {
-      return res.status(400).json({
-        success: 'false',
-        message: 'pickup location is required',
-      });
-    } if (!req.body.destination) {
-      return res.status(400).json({
-        success: 'false',
-        message: 'destination is required',
-      });
-    } if (!req.body.userId) {
-      return res.status(400).json({
-        success: 'false',
-        message: 'userId is required',
-      });
-    }
     const parcelData = {
       parcelId: db.length + 1,
       userId: req.body.userId,
@@ -154,5 +125,4 @@ class ParcelDelivery {
   }
 }
 
-// const parcelDeliveryOrder = new ParcelDelivery();
 module.exports = ParcelDelivery;
