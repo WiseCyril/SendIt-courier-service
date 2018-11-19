@@ -3,7 +3,7 @@
 const db = require('../db/db.js');
 
 class ParcelDelivery {
-  listAllParcelOrders(req, res) {
+  static listAllParcelOrders(req, res) {
     res.status(200).json({
       success: 'true',
       message: 'Successfully retrieved all parcel orders',
@@ -11,8 +11,7 @@ class ParcelDelivery {
     });
   }
 
-  listSingleParcelOrder(req, res) {
-    // let parcel;
+  static listSingleParcelOrder(req, res) {
     const parcelId = parseInt(req.params.parcelId, 10);
 
     const parcel = db.find(parcelData => parcelData.parcelId === parcelId);
@@ -30,9 +29,7 @@ class ParcelDelivery {
     });
   }
 
-  listUsersParcel(req, res) {
-    // let parcel;
-
+  static listUsersParcel(req, res) {
     const userId = parseInt(req.params.userId, 10);
     const parcel = db.filter(parcelData => parcelData.userId === userId);
 
@@ -49,33 +46,7 @@ class ParcelDelivery {
     });
   }
 
-  createParcelOrder(req, res) {
-    if (!req.body.weight) {
-      return res.status(400).json({
-        success: 'false',
-        message: 'weight is required',
-      });
-    } if (!req.body.receiver_name) {
-      return res.status(400).json({
-        success: 'false',
-        message: 'receiver\'s name is required',
-      });
-    } if (!req.body.pickup) {
-      return res.status(400).json({
-        success: 'false',
-        message: 'pickup location is required',
-      });
-    } if (!req.body.destination) {
-      return res.status(400).json({
-        success: 'false',
-        message: 'destination is required',
-      });
-    } if (!req.body.userId) {
-      return res.status(400).json({
-        success: 'false',
-        message: 'userId is required',
-      });
-    }
+  static createParcelOrder(req, res) {
     const parcelData = {
       parcelId: db.length + 1,
       userId: req.body.userId,
@@ -93,7 +64,7 @@ class ParcelDelivery {
     });
   }
 
-  cancelParcelOrder(req, res) {
+  static cancelParcelOrder(req, res) {
     let theParcel;
     const parcelId = parseInt(req.params.parcelId, 10);
 
@@ -116,7 +87,7 @@ class ParcelDelivery {
     });
   }
 
-  updateParcelOrder(req, res) {
+  static updateParcelOrder(req, res) {
     const parcelId = parseInt(req.params.parcelId, 10);
     let parcelOrder;
     let parcelIndex;
@@ -154,5 +125,4 @@ class ParcelDelivery {
   }
 }
 
-const parcelDeliveryOrder = new ParcelDelivery();
-module.exports = parcelDeliveryOrder;
+module.exports = ParcelDelivery;

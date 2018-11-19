@@ -1,11 +1,22 @@
 /* eslint-disable no-undef */
 const chai = require('chai');
+const http = require('http');
 const chaiHttp = require('chai-http');
-const app = require('../app');
-// const db = require('../db/db.js');
+const application = require('../app');
 
 chai.should();
 chai.use(chaiHttp);
+
+let app = null;
+
+beforeEach(() => {
+  app = http.createServer(application);
+  app.listen(process.env.PORT || 5000);
+});
+
+afterEach(() => {
+  app.close();
+});
 
 describe('Get all parcel delivery orders', () => {
   it('should list ALL parcel orders GET', (done) => {
@@ -52,7 +63,7 @@ describe('create parcel delivery by the user POST', () => {
       .post('/api/v1/parcels/')
       .send({
         userId: 743,
-        weight: '4kg',
+        weight: 4,
         pickup: 'Niger street, Enugu',
         receiver_name: 'Abu Taylor',
         destination: 'Ibukun street, Osogbo',
@@ -77,17 +88,12 @@ describe('update parcel delivery by the user PUT', () => {
         chai.request(app)
           .put('/api/v1/parcels/2/')
           .send({
-            // userId: 743,
-            // weight: '4kg',
-            // pickup: 'Niger street, Enugu',
-            // receiver_name: 'Abu Taylor',
             destination: 'Ayotunde street, Osogbo',
           });
         res.should.have.status(200);
         // eslint-disable-next-line no-unused-expressions
         // res.should.be.json;
         res.body.should.be.a('object');
-        // res.body.parcel.userId.should.equal(743);
         res.body.success.should.equal('true');
         // response.body.UPDATED.destination.should.equal('Spider');
         done();
