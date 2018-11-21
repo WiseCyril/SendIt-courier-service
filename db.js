@@ -22,10 +22,11 @@ const createParcelTables = () => {
   const queryText = `CREATE TABLE IF NOT EXISTS
       parcel(
         id UUID PRIMARY KEY,
+        status VARCHAR(255) DEFAULT 'Created',
         parcel_id INTEGER NOT NULL,
         weight INTEGER NOT NULL,
         receiver_name VARCHAR(255) NOT NULL,
-        pickup VARCHAR(255) NOT NULL,
+        presentLocation VARCHAR(255) NOT NULL,
         destination VARCHAR(255) NOT NULL,
         created_order_date TIMESTAMP,
         FOREIGN KEY (id) REFERENCES users (parcel_id) ON DELETE CASCADE

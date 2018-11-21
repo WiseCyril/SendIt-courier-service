@@ -7,7 +7,7 @@ const router = express.Router();
 const CreateParcelSchema = Joi.object({
   userId: Joi.number().positive().integer().required(),
   weight: Joi.number().positive().required(),
-  pickup: Joi.string().required(),
+  presentLocation: Joi.string().required(),
   receiver_name: Joi.string().required(),
   destination: Joi.string().required(),
 });
@@ -38,9 +38,22 @@ router.put('/api/v1/parcels/:parcelId/cancel', [
   ParcelDelivery.cancelParcelOrder,
 ]);
 
-// update an order
-router.put('/api/v1/parcels/:parcelId', [
-  ParcelDelivery.updateParcelOrder,
+// user can update present Locatio
+router.put('/api/v1/parcels/:parcelId/destination', [
+  validateRequestPayload(CreateParcelSchema),
+  ParcelDelivery.updateParcelOrderDestination,
+]);
+
+// admin can update status of an order
+router.put('/api/v1/parcels/:parcelId/status', [
+  validateRequestPayload(CreateParcelSchema),
+  ParcelDelivery.updateParcelOrderStatus,
+]);
+
+// admin can update the present Location of an order
+router.put('/api/v1/parcels/:parcelId/presentLocation', [
+  validateRequestPayload(CreateParcelSchema),
+  ParcelDelivery.updateParcelOrderLocation,
 ]);
 
 module.exports = router;

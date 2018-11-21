@@ -51,7 +51,7 @@ class ParcelDelivery {
       userId: req.body.userId,
       weight: req.body.weight,
       receiver_name: req.body.receiver_name,
-      pickup: req.body.pickup,
+      presentLocation: req.body.presentLocation,
       destination: req.body.destination,
     };
 
@@ -84,7 +84,7 @@ class ParcelDelivery {
     });
   }
 
-  static updateParcelOrder(req, res) {
+  static updateParcelOrderDestination(req, res) {
     const parcelId = parseInt(req.params.parcelId, 10);
     let parcelOrder;
     let parcelIndex;
@@ -99,7 +99,82 @@ class ParcelDelivery {
     if (!req.body.destination) {
       return res.status(404).json({
         success: 'false',
-        message: 'Only destination can be change',
+        message: 'Only destination can be changed by user',
+      });
+    }
+
+    const updateParcelOrderD = {
+      parcelId: parcelOrder.parcelId,
+      userId: parcelOrder.userId,
+      weight: parcelOrder.weight,
+      receiver_name: parcelOrder.receiver_name,
+      presentLocation: parcelOrder.presentLocation,
+      destination: req.body.destination,
+    };
+
+    db.splice(parcelIndex, 1, updateParcelOrderD);
+
+    return res.status(200).json({
+      success: 'true',
+      message: 'Parcel order destination successfully changed',
+      updateParcelOrderD,
+    });
+  }
+
+  static updateParcelOrderStatus(req, res) {
+    const parcelId = parseInt(req.params.parcelId, 10);
+    let parcelOrder;
+    let parcelIndex;
+
+    db.map((parcelData, index) => {
+      if (parcelData.parcelId === parcelId) {
+        parcelOrder = parcelData;
+        parcelIndex = index;
+      }
+    });
+
+    if (!req.body.status) {
+      return res.status(404).json({
+        success: 'false',
+        message: 'Admin can change password here',
+      });
+    }
+
+    const updateParcelOrderStat = {
+      status: parcelOrder.status,
+      parcelId: parcelOrder.parcelId,
+      userId: parcelOrder.userId,
+      weight: parcelOrder.weight,
+      receiver_name: parcelOrder.receiver_name,
+      presentLocation: parcelOrder.presentLocation,
+      destination: req.body.destination,
+    };
+
+    db.splice(parcelIndex, 1, updateParcelOrderStat);
+
+    return res.status(200).json({
+      success: 'true',
+      message: 'Status can either be created, pending, delivered or cancelled',
+      updateParcelOrderStat,
+    });
+  }
+
+  static updateParcelOrderLocation(req, res) {
+    const parcelId = parseInt(req.params.parcelId, 10);
+    let parcelOrder;
+    let parcelIndex;
+
+    db.map((parcelData, index) => {
+      if (parcelData.parcelId === parcelId) {
+        parcelOrder = parcelData;
+        parcelIndex = index;
+      }
+    });
+
+    if (!req.body.presentLocation) {
+      return res.status(404).json({
+        success: 'false',
+        message: 'Only Present Location can be changed by admin here',
       });
     }
 
@@ -108,15 +183,15 @@ class ParcelDelivery {
       userId: parcelOrder.userId,
       weight: parcelOrder.weight,
       receiver_name: parcelOrder.receiver_name,
-      pickup: parcelOrder.pickup,
-      destination: req.body.destination,
+      presentLocation: req.body.presentLocation,
+      destination: parcelOrder.destination,
     };
 
     db.splice(parcelIndex, 1, updateParcelOrder);
 
     return res.status(200).json({
       success: 'true',
-      message: 'Parcel order destination successfully changed',
+      message: 'Parcel present location has been successfully changed',
       updateParcelOrder,
     });
   }
