@@ -13,7 +13,6 @@ class ParcelDelivery {
 
   static listSingleParcelOrder(req, res) {
     const parcelId = parseInt(req.params.parcelId, 10);
-
     const parcel = db.find(parcelData => parcelData.parcelId === parcelId);
 
     if (parcel) {
@@ -74,14 +73,12 @@ class ParcelDelivery {
         db.splice(index, 1);
       }
     });
-
     if (theParcel) {
       return res.status(204).json({
         success: 'true',
         message: 'Parcel order has been cancelled successfully',
       });
-    }
-    return res.status(404).json({
+    } return res.status(404).json({
       success: 'false',
       message: 'parcel order not found',
     });
