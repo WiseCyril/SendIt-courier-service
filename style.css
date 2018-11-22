@@ -154,8 +154,8 @@ body{
 }
 
 .container {
-  padding-right: 15px;
-  padding-left: 15px;
+  /* padding-right: 15px; */
+  /* padding-left: 15px; */
   margin-right: auto;
   margin-left: auto;
   display: block;
@@ -168,14 +168,14 @@ body{
 
 .header{
   display: flex;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
   background: #bd4e4e;
   width: 100%;
 }
 
 .header img{
-  width: 10%;
-  height: 10%;
+  width: 100%;
+  height: 100%;
 }
 
 .head{
@@ -208,11 +208,13 @@ body{
   border-radius: 15px;
   background-color: #f5f9f9;
   margin: auto;
+  margin-right: 11px;
 }
 
 .signup{
   padding: 10px;
   margin: auto;
+  margin-right: 11px;
 }
 
 .content-form h3{
@@ -287,6 +289,7 @@ hr {
   opacity: 0.9;
   font-size: 20px;
   font-weight: bolder;
+  border-radius: 10px;
 }
 
 .reg-btn:hover {
@@ -317,7 +320,7 @@ hr {
 
 a{
   text-decoration: none;
-  color: #06000a;
+  color: #af3008;
 }
 
 .footer{
@@ -325,6 +328,7 @@ a{
   color: white;
   margin-top: 10px;
   background: #bd4e4e;
+  padding-left: 16px;
 }
 
 .fab{
