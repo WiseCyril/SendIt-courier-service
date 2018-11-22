@@ -1,15 +1,12 @@
-import 'babel-polyfill';
-
+// import 'babe-Polyfill';
 import express from 'express';
 import bodyParser from 'body-parser';
 import parcelRouter from './server/routes/parcel';
 import userRouter from './server/routes/user';
 
-
 const dotenv = require('dotenv');
 
 dotenv.config();
-
 
 // Set up the express app
 const app = express();
@@ -36,4 +33,4 @@ app.all('*', (req, res) => {
 //   console.log(`server running on port ${PORT}`);
 // });
 
-module.exports = app;
+export default app;

@@ -21,14 +21,14 @@ const createParcelTables = () => {
   const queryText = `CREATE TABLE IF NOT EXISTS
       parcels(
         id serial NOT NULL PRIMARY KEY,
-        user_id INTEGER NOT NULL,
+        userId INTEGER NOT NULL,
         status VARCHAR(255) DEFAULT 'Created',
         weight INTEGER NOT NULL,
         receiver_name VARCHAR(255) NOT NULL,
         presentLocation VARCHAR(255) NOT NULL,
         destination VARCHAR(255) NOT NULL,
         created_order_date TIMESTAMP,
-        FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+        FOREIGN KEY (userId) REFERENCES users (id) ON DELETE CASCADE
         )`;
 
   pool.query(queryText)
@@ -51,7 +51,8 @@ const createUserTable = () => {
           id serial NOT NULL PRIMARY KEY,
           email VARCHAR(255) UNIQUE NOT NULL,
           password VARCHAR(255) NOT NULL,
-          created_date TIMESTAMP
+          created_date TIMESTAMP,
+          role VARCHAR(255) NOT NULL
         )`;
 
   pool.query(queryText)

@@ -35,6 +35,7 @@ const Helper = {
   generateToken(id) {
     const token = jwt.sign({
       userId: id,
+      role: role
     },
     process.env.SECRET, { expiresIn: '3d' });
     return token;

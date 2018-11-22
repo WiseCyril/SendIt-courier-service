@@ -26,7 +26,7 @@ class ParcelDelivery {
    * @param {object} res
    * @returns {object} parcel object
    */
-  static async listOrder(req, res) {
+  static async getOrder(req, res) {
     const text = 'SELECT * FROM parcel WHERE id = $1 and parcel_id =$2';
     try {
       const { rows } = await db.query(text, [req.params.id, req.user.id]);
@@ -69,6 +69,7 @@ class ParcelDelivery {
     parcel(id, user_id, status, weight, receiver_name, presentLocation, destination, created_order_date)
     VALUES($1, $2, $3, $4, $5, $6, $7)
     returning *`;
+    
     const values = [
       req.body.parcel_id,
       req.user.id,
