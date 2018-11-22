@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Pool } from 'pg';
 import dotenv from 'dotenv';
 
@@ -15,9 +16,11 @@ export default {
    * @returns {object} object
    */
   query(text, params) {
+    console.log(text, params);
     return new Promise((resolve, reject) => {
       pool.query(text, params)
         .then((res) => {
+          console.log(res);
           resolve(res);
         })
         .catch((err) => {

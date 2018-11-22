@@ -1,11 +1,16 @@
+import Auth from '../middleware/Auth';
+import ParcelDelivery from '../controllers/parcel';
+import validateRequestPayload from '../middleware/validateRequestPayload';
+
 const Joi = require('joi');
 const express = require('express');
-const ParcelDelivery = require('../controllers/parcel');
-const validateRequestPayload = require('../middleware/validateRequestPayload');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const router = express.Router();
+
 const CreateParcelSchema = Joi.object({
-  userId: Joi.number().positive().integer().required(),
   weight: Joi.number().positive().required(),
   presentLocation: Joi.string().required(),
   receiver_name: Joi.string().required(),
@@ -13,47 +18,62 @@ const CreateParcelSchema = Joi.object({
 });
 
 // get all parcel orders
-router.get('/api/v1/parcels', [
-  ParcelDelivery.listAllParcelOrders,
-]);
+router.get(
+  '/',
+  Auth.verifyToken,
+  ParcelDelivery.listAllOrder,
+);
 
 // create a parcel order
-router.post('/api/v1/parcels', [
+router.post(
+  '/',
+  Auth.verifyToken,
   validateRequestPayload(CreateParcelSchema),
-  ParcelDelivery.createParcelOrder,
-]);
+  ParcelDelivery.createOrder,
+);
 
 // fetch a single parcel order
-router.get('/api/v1/parcels/:parcelId', [
-  ParcelDelivery.listSingleParcelOrder,
-]);
+router.get(
+  '/:parcelId',
+  Auth.verifyToken,
+  ParcelDelivery.listOrder,
+);
 
 // fetch all parcels orders by a specific user
-router.get('/api/v1/users/:userId/parcels', [
-  ParcelDelivery.listUsersParcel,
-]);
+router.get(
+  '/api/v1/users/:userId/parcels',
+  Auth.verifyToken,
+  ParcelDelivery.listMyOrders,
+);
 
 // cancel a parcel delivery order
-router.put('/api/v1/parcels/:parcelId/cancel', [
-  ParcelDelivery.cancelParcelOrder,
-]);
+router.put(
+  '/:parcelId/cancel',
+  Auth.verifyToken,
+  ParcelDelivery.cancelOrder,
+);
 
-// user can update present Locatio
-router.put('/api/v1/parcels/:parcelId/destination', [
-  validateRequestPayload(CreateParcelSchema),
-  ParcelDelivery.updateParcelOrderDestination,
-]);
+// user can update destination
+router.put(
+  '/:parcelId/destination',
+  Auth.verifyToken,
+  ParcelDelivery.updateDestination,
+);
 
 // admin can update status of an order
-router.put('/api/v1/parcels/:parcelId/status', [
-  validateRequestPayload(CreateParcelSchema),
-  ParcelDelivery.updateParcelOrderStatus,
-]);
+router.put(
+  '/:parcelId/status',
+  Auth.verifyToken,
+  // validateRequestPayload(CreateParcelSchema),
+  ParcelDelivery.updateStatus,
+);
 
 // admin can update the present Location of an order
-router.put('/api/v1/parcels/:parcelId/presentLocation', [
+router.put(
+  '/:parcelId/presentLocation',
+  Auth.verifyToken,
   validateRequestPayload(CreateParcelSchema),
-  ParcelDelivery.updateParcelOrderLocation,
-]);
+  ParcelDelivery.updateLocation,
+);
 
-module.exports = router;
+export default router;

@@ -1,200 +1,208 @@
-/* eslint-disable array-callback-return */
-/* eslint-disable class-methods-use-this */
-const db = require('../db/db.js');
+import db from '../db';
+
+// const moment = require('moment');
+// import "@babel/polyfill";
 
 class ParcelDelivery {
-  static listAllParcelOrders(req, res) {
-    res.status(200).json({
-      success: 'true',
-      message: 'Successfully retrieved all parcel orders',
-      parcelData: db,
-    });
-  }
-
-  static listSingleParcelOrder(req, res) {
-    const parcelId = parseInt(req.params.parcelId, 10);
-    const parcel = db.find(parcelData => parcelData.parcelId === parcelId);
-
-    if (parcel) {
-      return res.status(200).json({
-        success: 'true',
-        message: 'parcel order successfully retrieved',
-        parcel,
-      });
+  /**
+   * List All Parcel orders
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} list of all parcel-orders array
+   */
+  static async listAllOrder(req, res) {
+    const listAllQuery = 'SELECT * FROM parcels where user_id = $1';
+    try {
+      const { rows, rowCount } = await db.query(listAllQuery, [req.user.id]);
+      return res.status(200).send({ rows, rowCount });
+    } catch (error) {
+      return res.status(400).send(error);
     }
-    return res.status(404).json({
-      success: 'false',
-      message: 'parcel order does not exist',
-    });
   }
 
-  static listUsersParcel(req, res) {
-    const userId = parseInt(req.params.userId, 10);
-    const parcel = db.filter(parcelData => parcelData.userId === userId);
-
-    if (parcel) {
-      return res.status(200).json({
-        success: 'true',
-        message: 'users parcels successfully retrieved',
-        parcel,
-      });
-    }
-    return res.status(404).json({
-      success: 'false',
-      message: 'users does not exist',
-    });
-  }
-
-  static createParcelOrder(req, res) {
-    const parcelData = {
-      parcelId: db.length + 1,
-      userId: req.body.userId,
-      weight: req.body.weight,
-      receiver_name: req.body.receiver_name,
-      presentLocation: req.body.presentLocation,
-      destination: req.body.destination,
-    };
-
-    db.push(parcelData);
-    return res.status(201).json({
-      success: 'true',
-      message: 'parcel order added successfully',
-      parcelData,
-    });
-  }
-
-  static cancelParcelOrder(req, res) {
-    let theParcel;
-    const parcelId = parseInt(req.params.parcelId, 10);
-
-    db.forEach((parcel, index) => {
-      if (parcel.parcelId === parcelId) {
-        theParcel = parcel;
-        db.splice(index, 1);
+  /**
+   * Get a single parcel orde
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} parcel object
+   */
+  static async listOrder(req, res) {
+    const text = 'SELECT * FROM parcel WHERE id = $1 and parcel_id =$2';
+    try {
+      const { rows } = await db.query(text, [req.params.id, req.user.id]);
+      if (!rows[0]) {
+        return res.status(404).send({ message: 'parcel order not found' });
       }
-    });
-    if (theParcel) {
-      return res.status(204).json({
-        success: 'true',
-        message: 'Parcel order has been cancelled successfully',
-      });
-    } return res.status(404).json({
-      success: 'false',
-      message: 'parcel order not found',
-    });
+      return res.status(200).send(rows[0]);
+    } catch (error) {
+      return res.status(400).send(error);
+    }
   }
 
-  static updateParcelOrderDestination(req, res) {
-    const parcelId = parseInt(req.params.parcelId, 10);
-    let parcelOrder;
-    let parcelIndex;
-
-    db.map((parcelData, index) => {
-      if (parcelData.parcelId === parcelId) {
-        parcelOrder = parcelData;
-        parcelIndex = index;
+  /**
+   * Get all parcel orders by a single user
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} parcel object
+   */
+  static async listMyOrders(req, res) {
+    const text = 'SELECT * FROM users WHERE id = $1 and req.user.id =$2';
+    try {
+      const { rows } = await db.query(text, [req.params.parcel_id]);
+      if (!rows[0]) {
+        return res.status(404).send({ message: 'id not found' });
       }
-    });
-
-    if (!req.body.destination) {
-      return res.status(404).json({
-        success: 'false',
-        message: 'Only destination can be changed by user',
-      });
+      return res.status(200).send(rows[0]);
+    } catch (error) {
+      return res.status(400).send(error);
     }
-
-    const updateParcelOrderD = {
-      parcelId: parcelOrder.parcelId,
-      userId: parcelOrder.userId,
-      weight: parcelOrder.weight,
-      receiver_name: parcelOrder.receiver_name,
-      presentLocation: parcelOrder.presentLocation,
-      destination: req.body.destination,
-    };
-
-    db.splice(parcelIndex, 1, updateParcelOrderD);
-
-    return res.status(200).json({
-      success: 'true',
-      message: 'Parcel order destination successfully changed',
-      updateParcelOrderD,
-    });
   }
 
-  static updateParcelOrderStatus(req, res) {
-    const parcelId = parseInt(req.params.parcelId, 10);
-    let parcelOrder;
-    let parcelIndex;
+  /**
+   * Create A Parcel Order
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} parcel order object
+   */
+  static async createOrder(req, res) {
+    const createOrder = `INSERT INTO
+    parcel(id, user_id, status, weight, receiver_name, presentLocation, destination, created_order_date)
+    VALUES($1, $2, $3, $4, $5, $6, $7)
+    returning *`;
+    const values = [
+      req.body.parcel_id,
+      req.user.id,
+      req.body.status,
+      req.body.weight,
+      req.body.receiver_name,
+      req.body.presentLocation,
+      req.body.destination,
+      req.body.created_order_date,
+    ];
 
-    db.map((parcelData, index) => {
-      if (parcelData.parcelId === parcelId) {
-        parcelOrder = parcelData;
-        parcelIndex = index;
-      }
-    });
-
-    if (!req.body.status) {
-      return res.status(404).json({
-        success: 'false',
-        message: 'Admin can change password here',
-      });
+    try {
+      const { rows } = await db.query(createOrder, values);
+      return res.status(201).send(rows[0]);
+    } catch (error) {
+      return res.status(400).send(error);
     }
-
-    const updateParcelOrderStat = {
-      status: parcelOrder.status,
-      parcelId: parcelOrder.parcelId,
-      userId: parcelOrder.userId,
-      weight: parcelOrder.weight,
-      receiver_name: parcelOrder.receiver_name,
-      presentLocation: parcelOrder.presentLocation,
-      destination: req.body.destination,
-    };
-
-    db.splice(parcelIndex, 1, updateParcelOrderStat);
-
-    return res.status(200).json({
-      success: 'true',
-      message: 'Status can either be created, pending, delivered or cancelled',
-      updateParcelOrderStat,
-    });
   }
 
-  static updateParcelOrderLocation(req, res) {
-    const parcelId = parseInt(req.params.parcelId, 10);
-    let parcelOrder;
-    let parcelIndex;
-
-    db.map((parcelData, index) => {
-      if (parcelData.parcelId === parcelId) {
-        parcelOrder = parcelData;
-        parcelIndex = index;
+  /**
+   * Cancel a parcel delivery order
+   * @param {object} req
+   * @param {object} res
+   * @returns {void} return statuc code 204
+   */
+  static async cancelOrder(req, res) {
+    const deleteQuery = 'DELETE FROM parcel WHERE id = $1 AND parcel_id=$2 returning *';
+    try {
+      const { rows } = await db.query(deleteQuery, [req.params.id, req.user.i]);
+      if (!rows[0]) {
+        return res.status(404).send({ message: 'parcel order not found' });
       }
-    });
-
-    if (!req.body.presentLocation) {
-      return res.status(404).json({
-        success: 'false',
-        message: 'Only Present Location can be changed by admin here',
-      });
+      return res.status(204).send({ message: 'parcel order has been cancelled' });
+    } catch (error) {
+      return res.status(400).send(error);
     }
+  }
 
-    const updateParcelOrder = {
-      parcelId: parcelOrder.parcelId,
-      userId: parcelOrder.userId,
-      weight: parcelOrder.weight,
-      receiver_name: parcelOrder.receiver_name,
-      presentLocation: req.body.presentLocation,
-      destination: parcelOrder.destination,
-    };
+  /**
+   * User can update parcel destination
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} updated destination
+   */
+  static async updateDestination(req, res) {
+    const findOneOrder = 'SELECT * FROM parcel WHERE parcel_id=$1';
+    const updateDestination = `UPDATE parcel
+    SET status=$1, weight=$2, receiver_name=$3, presentLocation=$4,destination=$5 WHERE parcel_id=$6 returning *`;
+    try {
+      const { rows } = await db.query(findOneOrder, [req.params.id]);
+      if (!rows[0]) {
+        return res.status(404).send({ message: 'destination not found' });
+      }
+      const values = [
+        req.body.parcel_id || rows[0].success,
+        req.body.status || rows[0].status,
+        req.body.parcel_id || rows[0].parcel_id,
+        req.body.weight || rows[0].weight,
+        req.body.receiver_name || rows[0].receiver_name,
+        req.body.presentLocation || rows[0].presentLocationt,
+        // req.body.destination || rows[0].destination,
+        req.params.destination,
+      ];
+      const response = await db.query(updateDestination, values);
+      return res.status(200).send(response.rows[0]);
+    } catch (err) {
+      return res.status(400).send(err);
+    }
+  }
 
-    db.splice(parcelIndex, 1, updateParcelOrder);
+  /**
+   * Admin can update status
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} updated status
+   */
 
-    return res.status(200).json({
-      success: 'true',
-      message: 'Parcel present location has been successfully changed',
-      updateParcelOrder,
-    });
+  static async updateStatus(req, res) {
+    const findOneOrder = 'SELECT * FROM parcel WHERE parcel_id=$1';
+    const updatedStatus = `UPDATE parcel
+    SET status=$1, weight=$2, receiver_name=$3, presentLocation=$4,destination=$5 WHERE parcel_id=$6 returning *`;
+    try {
+      const { rows } = await db.query(findOneOrder, [req.params.id]);
+      if (!rows[0]) {
+        return res.status(404).send({ message: 'status not found' });
+      }
+      const values = [
+        req.body.parcel_id || rows[0].success,
+        // req.body.status || rows[0].status,
+        req.body.parcel_id || rows[0].parcel_id,
+        req.body.weight || rows[0].weight,
+        req.body.receiver_name || rows[0].receiver_name,
+        req.body.presentLocation || rows[0].presentLocationt,
+        req.body.destination || rows[0].destination,
+        req.params.status,
+      ];
+      const response = await db.query(updatedStatus, values);
+      return res.status(200).send(response.rows[0]);
+    } catch (err) {
+      return res.status(400).send(err);
+    }
+  }
+
+  /**
+   * User can update parcel location
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} updated location
+   */
+  static async updateLocation(req, res) {
+    const findOneOrder = 'SELECT * FROM parcel WHERE parcel_id=$1';
+    const updateLocation = `UPDATE parcel
+    SET status=$1, weight=$2, receiver_name=$3, presentLocation=$4,destination=$5 WHERE parcel_id=$6 returning *`;
+    try {
+      const { rows } = await db.query(findOneOrder, [req.params.id]);
+      if (!rows[0]) {
+        return res.status(404).send({ message: 'reflection not found' });
+      }
+      const values = [
+        req.body.parcel_id || rows[0].success,
+        req.body.status || rows[0].status,
+        req.body.parcel_id || rows[0].parcel_id,
+        req.body.weight || rows[0].weight,
+        req.body.receiver_name || rows[0].receiver_name,
+        // req.body.presentLocation || rows[0].presentLocationt,
+        req.body.destination || rows[0].destination,
+        req.params.presentLocation,
+      ];
+      const response = await db.query(updateLocation, values);
+      return res.status(200).send(response.rows[0]);
+    } catch (err) {
+      return res.status(400).send(err);
+    }
   }
 }
 
-module.exports = ParcelDelivery;
+export default ParcelDelivery;

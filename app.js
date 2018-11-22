@@ -1,7 +1,15 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+import 'babel-polyfill';
 
-const router = require('./server/routes/parcel');
+import express from 'express';
+import bodyParser from 'body-parser';
+import parcelRouter from './server/routes/parcel';
+import userRouter from './server/routes/user';
+
+
+const dotenv = require('dotenv');
+
+dotenv.config();
+
 
 // Set up the express app
 const app = express();
@@ -14,7 +22,8 @@ app.get('/', (req, res) => {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(router);
+app.use('/api/v1', userRouter);
+app.use('/api/v1/parcels', parcelRouter);
 
 app.all('*', (req, res) => {
   res.json('Route not available at the moment');
